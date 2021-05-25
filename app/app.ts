@@ -1,11 +1,13 @@
 import * as Koa from 'koa';
 import * as koaBody from 'koa-body';
 import * as cors from '@koa/cors';
+import * as dotenv from 'dotenv';
 
-const serve = require('koa-static');
-const koaValidator = require('koa-async-validator');
-const koaSwagger = require('koa2-swagger-ui');
-const koaBunyanLogger = require('koa-bunyan-logger');
+import * as serve from 'koa-static';
+import { koaSwagger } from 'koa2-swagger-ui';
+import * as koaBunyanLogger from 'koa-bunyan-logger';
+
+dotenv.config();
 
 import { config } from './config';
 import { routes } from './routes';
@@ -14,7 +16,6 @@ import { logger } from './logger';
 const app = new Koa();
 
 app.use(koaBody());
-app.use(koaValidator());
 app.use(cors());
 app.use(koaBunyanLogger(logger));
 app.use(koaBunyanLogger.requestLogger());
